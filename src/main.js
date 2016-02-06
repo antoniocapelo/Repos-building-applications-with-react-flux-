@@ -1,41 +1,12 @@
-    // using $ globally as it's required to be global on bootstrap
-    $ = jQuery = require('jquery');
+'use strict';
+var React = require('react');
+var Router = require('react-router');
+var routes = require('./routes');
 
-    var React = require('react');
-    var Home = require('./components/homePage');
-    var About = require('./components/about/aboutPage');
-    var Header = require('./components/common/header.js');
-    var Authors = require('./components/authors/authorPage');
+Router.run(routes, function(Handler) {
+    React.render(<Handler />, document.getElementById('app'));
+});
 
-    (function(win) {
-        'use strict';
+// for history location api (IE10+):
+//Router.run(routes, Router.HistoryLocation, function(Handler) {
 
-        var App = React.createClass({
-            render: function() {
-                var Child;
-                switch (this.props.route) {
-                    case 'about': Child = About; break;
-                    case 'authors': Child = Authors; break;
-                    default: Child = Home;
-                    break;
-                }
-
-                return (
-                    <div>
-                        <Header/>
-                        <Child/>
-                    </div>
-                );
-            }
-        });
-
-        function render() {
-            var route = win.location.hash.substr(1);
-            React.render(<App route={route} />, document.getElementById('app'));
-        }
-
-        win.addEventListener('hashchange', render);
-        render();
-  
-      
-    })(window);
