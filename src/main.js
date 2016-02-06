@@ -4,6 +4,8 @@
     var React = require('react');
     var Home = require('./components/homePage');
     var About = require('./components/about/aboutPage');
+    var Header = require('./components/common/header.js');
+    var Authors = require('./components/authors/authorPage');
 
     (function(win) {
         'use strict';
@@ -13,12 +15,14 @@
                 var Child;
                 switch (this.props.route) {
                     case 'about': Child = About; break;
+                    case 'authors': Child = Authors; break;
                     default: Child = Home;
                     break;
                 }
 
                 return (
                     <div>
+                        <Header/>
                         <Child/>
                     </div>
                 );

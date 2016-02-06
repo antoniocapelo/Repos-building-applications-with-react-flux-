@@ -23,8 +23,6 @@ var About = React.createClass({
                     <li>Browserify</li>
                 </ul>
             </p>
-
-
         </div>
     );
   }
