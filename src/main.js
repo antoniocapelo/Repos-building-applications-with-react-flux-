@@ -1,6 +1,37 @@
-// using $ globally as it's required to be global on bootstrap
-$ = jQuery = require('jquery');
+    // using $ globally as it's required to be global on bootstrap
+    $ = jQuery = require('jquery');
 
-var App = console.log('hello world, from browserifiy');
+    var React = require('react');
+    var Home = require('./components/homePage');
+    var About = require('./components/about/aboutPage');
 
-module.exports = App;
+    (function(win) {
+        'use strict';
+
+        var App = React.createClass({
+            render: function() {
+                var Child;
+                switch (this.props.route) {
+                    case 'about': Child = About; break;
+                    default: Child = Home;
+                    break;
+                }
+
+                return (
+                    <div>
+                        <Child/>
+                    </div>
+                );
+            }
+        });
+
+        function render() {
+            var route = win.location.hash.substr(1);
+            React.render(<App route={route} />, document.getElementById('app'));
+        }
+
+        win.addEventListener('hashchange', render);
+        render();
+  
+      
+    })(window);
